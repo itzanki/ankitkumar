@@ -135,7 +135,7 @@ export function Footer() {
         >
           <div className="flex items-center gap-4">
             <span className="font-serif text-lg text-primary">यात्रा</span>
-            <span className="text-muted-foreground text-sm">
+            <span className="text-muted-foreground text-sm" suppressHydrationWarning>
               © {new Date().getFullYear()} Ankit Kumar. All rights reserved
             </span>
           </div>

@@ -1,10 +1,15 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export function RiverTransition() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -152,7 +157,7 @@ export function RiverTransition() {
       </svg>
 
       {/* Floating debris/leaves */}
-      {[...Array(8)].map((_, i) => (
+      {isMounted && [...Array(8)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full"
@@ -180,7 +185,7 @@ export function RiverTransition() {
       ))}
 
       {/* Light sparkles on water */}
-      {[...Array(12)].map((_, i) => (
+      {isMounted && [...Array(12)].map((_, i) => (
         <motion.div
           key={`sparkle-${i}`}
           className="absolute w-1 h-1 bg-primary/60 rounded-full"

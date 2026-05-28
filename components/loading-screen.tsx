@@ -11,20 +11,20 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [isPunched, setIsPunched] = useState(false);
   const [isTicketExiting, setIsTicketExiting] = useState(false);
   const [ticketNumber, setTicketNumber] = useState(12345);
+  const [today, setToday] = useState("");
 
   useEffect(() => {
     setTicketNumber(Math.floor(Math.random() * 90000) + 10000);
+    setToday(new Date().toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    }).toUpperCase());
   }, []);
 
   // Loading Screen State
   const [progress, setProgress] = useState(0);
   const [isLoadingExiting, setIsLoadingExiting] = useState(false);
-
-  const today = new Date().toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric"
-  }).toUpperCase();
 
   const handlePunch = () => {
     if (isPunched) return;

@@ -1,10 +1,15 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -27,7 +32,7 @@ export function HeroSection() {
 
       {/* Animated fog/smoke particles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
+        {isMounted && [...Array(6)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-96 h-96 rounded-full bg-primary/5 blur-3xl"
@@ -138,7 +143,7 @@ export function HeroSection() {
             {/* Barcode decoration */}
             <div className="mt-6 pt-4 border-t border-dashed border-border">
               <div className="flex justify-center gap-[2px]">
-                {[...Array(40)].map((_, i) => (
+                {isMounted && [...Array(40)].map((_, i) => (
                   <div
                     key={i}
                     className="bg-muted-foreground/30"

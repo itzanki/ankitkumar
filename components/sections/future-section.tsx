@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowRight, Sparkles, Globe, Code, Cpu } from "lucide-react";
 
 const visions = [
@@ -28,6 +28,11 @@ const visions = [
 export function FutureSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <section
@@ -41,7 +46,7 @@ export function FutureSection() {
 
       {/* Falling Bodhi (Peepal) Leaves */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {isMounted && [...Array(12)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute text-primary/20"
