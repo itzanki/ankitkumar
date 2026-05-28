@@ -133,7 +133,15 @@ export function VintageRadio() {
 
   // Handle Tuning Physics: mixes static noise and applies lowpass filters based on frequency distance
   useEffect(() => {
-    if (!powerOn) return;
+    if (!powerOn) {
+      if (musicGainRef.current) {
+        musicGainRef.current.gain.value = 0;
+      }
+      if (staticGainRef.current) {
+        staticGainRef.current.gain.value = 0;
+      }
+      return;
+    }
 
     // Find distance to closest station
     const nearestStation = stations.reduce((prev, curr) => {
