@@ -80,7 +80,7 @@ export function ChaiTapri() {
   return (
     <div className="flex flex-col gap-8 w-full">
       {/* Tapri Visual Stage */}
-      <div className="relative h-64 w-full bg-card/10 border border-border/40 rounded-2xl overflow-hidden shadow-inner flex items-end justify-around pb-6 px-4">
+      <div className="relative h-64 w-full bg-card/10 border border-border/40 rounded-2xl overflow-x-auto overflow-y-hidden md:overflow-hidden shadow-inner flex items-end justify-between md:justify-around pb-6 px-4 md:px-6 gap-6 md:gap-0 scrollbar-none">
         {/* Ambient Stall Steam Background */}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 via-transparent to-transparent pointer-events-none z-0" />
         <div className="absolute top-4 left-6">
@@ -91,7 +91,7 @@ export function ChaiTapri() {
         {/* 1. Boiling Kettle (Languages) */}
         <div 
           onClick={() => setActiveCategory("languages")}
-          className="relative z-10 flex flex-col items-center cursor-pointer group"
+          className="relative z-10 flex flex-col flex-shrink-0 items-center cursor-pointer group"
         >
           {/* Steam animation */}
           <div className="absolute -top-10 left-6 flex flex-col gap-1 pointer-events-none">
@@ -184,7 +184,7 @@ export function ChaiTapri() {
         {/* 2. Cutting Chai Glass Holder (Frontend) */}
         <div 
           onClick={() => setActiveCategory("frontend")}
-          className="relative z-10 flex flex-col items-center cursor-pointer group"
+          className="relative z-10 flex flex-col flex-shrink-0 items-center cursor-pointer group"
         >
           <motion.div
             whileHover={{ scale: 1.05, y: -4 }}
@@ -231,7 +231,7 @@ export function ChaiTapri() {
         {/* 3. Samosa Plate (Backend) */}
         <div 
           onClick={() => setActiveCategory("backend")}
-          className="relative z-10 flex flex-col items-center cursor-pointer group"
+          className="relative z-10 flex flex-col flex-shrink-0 items-center cursor-pointer group"
         >
           <motion.div
             whileHover={{ scale: 1.05, rotate: [0, 2, -2, 0] }}
@@ -278,7 +278,7 @@ export function ChaiTapri() {
         {/* 4. Kulhad Stand (Cloud & DevOps) */}
         <div 
           onClick={() => setActiveCategory("cloud")}
-          className="relative z-10 flex flex-col items-center cursor-pointer group"
+          className="relative z-10 flex flex-col flex-shrink-0 items-center cursor-pointer group"
         >
           <motion.div
             whileHover={{ scale: 1.05, y: -2 }}

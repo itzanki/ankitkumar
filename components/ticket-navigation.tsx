@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
   { id: "beginnings", label: "Beginnings", hindi: "शुरुआत" },
@@ -12,6 +13,7 @@ const navItems = [
 
 export function TicketNavigation() {
   const [activeSection, setActiveSection] = useState<string>("beginnings");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,72 +48,126 @@ export function TicketNavigation() {
   };
 
   return (
-    <motion.nav
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 1, duration: 0.6 }}
-      className="fixed left-4 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3"
-    >
-      {navItems.map((item, index) => (
-        <motion.button
-          key={item.id}
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 1.2 + index * 0.1, duration: 0.4 }}
-          onClick={() => scrollToSection(item.id)}
-          className={`group relative flex items-center`}
-        >
-          {/* Ticket shape */}
-          <div
-            className={`relative bg-card/80 backdrop-blur-sm border rounded-r-lg transition-all duration-300 ${
-              activeSection === item.id
-                ? "border-primary bg-primary/10"
-                : "border-border hover:border-primary/50"
-            }`}
+    <>
+      {/* Desktop Menu */}
+      <motion.nav
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 1, duration: 0.6 }}
+        className="fixed left-4 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3"
+      >
+        {navItems.map((item, index) => (
+          <motion.button
+            key={item.id}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 1.2 + index * 0.1, duration: 0.4 }}
+            onClick={() => scrollToSection(item.id)}
+            className={`group relative flex items-center`}
           >
-            {/* Perforation */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-4 bg-background rounded-r-full" />
-
-            {/* Content */}
-            <div className="pl-4 pr-3 py-2 min-w-[100px]">
-              <p className="text-[10px] text-muted-foreground mb-0.5">{item.hindi}</p>
-              <p
-                className={`text-xs font-medium transition-colors ${
-                  activeSection === item.id ? "text-primary" : "text-foreground"
-                }`}
-              >
-                {item.label}
-              </p>
-            </div>
-
-            {/* Station number */}
-            <div 
-              className={`absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 border rounded-full flex items-center justify-center transition-all duration-300 ${
-                activeSection === item.id 
-                  ? "bg-primary border-primary" 
-                  : "bg-card border-border"
+            {/* Ticket shape */}
+            <div
+              className={`relative bg-card/80 backdrop-blur-sm border rounded-r-lg transition-all duration-300 ${
+                activeSection === item.id
+                  ? "border-primary bg-primary/10"
+                  : "border-border hover:border-primary/50"
               }`}
             >
-              <span 
-                className={`font-mono text-[10px] transition-colors ${
-                  activeSection === item.id ? "text-background" : "text-muted-foreground"
+              {/* Perforation */}
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-4 bg-background rounded-r-full" />
+
+              {/* Content */}
+              <div className="pl-4 pr-3 py-2 min-w-[100px]">
+                <p className="text-[10px] text-muted-foreground mb-0.5">{item.hindi}</p>
+                <p
+                  className={`text-xs font-medium transition-colors ${
+                    activeSection === item.id ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {item.label}
+                </p>
+              </div>
+
+              {/* Station number */}
+              <div 
+                className={`absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 border rounded-full flex items-center justify-center transition-all duration-300 ${
+                  activeSection === item.id 
+                    ? "bg-primary border-primary" 
+                    : "bg-card border-border"
                 }`}
               >
-                {String(index + 1).padStart(2, "0")}
-              </span>
+                <span 
+                  className={`font-mono text-[10px] transition-colors ${
+                    activeSection === item.id ? "text-background" : "text-muted-foreground"
+                  }`}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Active indicator line */}
-          {activeSection === item.id && (
-            <motion.div
-              layoutId="activeIndicator"
-              className="absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-full"
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            />
-          )}
-        </motion.button>
-      ))}
-    </motion.nav>
+            {/* Active indicator line */}
+            {activeSection === item.id && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-full"
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            )}
+          </motion.button>
+        ))}
+      </motion.nav>
+
+      {/* Mobile Menu Toggle Button */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1 }}
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="fixed top-4 right-4 z-55 lg:hidden p-3 rounded-full bg-card/80 backdrop-blur-md border border-border shadow-lg text-primary pointer-events-auto cursor-pointer focus:outline-none animate-in fade-in"
+        aria-label="Toggle navigation menu"
+      >
+        {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+      </motion.button>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-background/95 backdrop-blur-md z-50 lg:hidden flex flex-col items-center justify-center pointer-events-auto"
+          >
+            <div className="flex flex-col gap-8 text-center">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="group flex flex-col items-center focus:outline-none"
+                >
+                  <span className="text-[10px] text-primary/70 font-mono tracking-[0.2em] uppercase">{item.hindi}</span>
+                  <span className={`text-3xl font-serif mt-1 transition-colors ${activeSection === item.id ? "text-primary font-bold" : "text-foreground group-hover:text-primary/80"}`}>
+                    {item.label}
+                  </span>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-border" />
+                    <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">STATION 0{index + 1}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-border" />
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

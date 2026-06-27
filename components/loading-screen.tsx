@@ -146,21 +146,21 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                       ? { duration: 1.5, times: [0, 0.3, 1], ease: "easeInOut" } 
                       : { duration: 0.8, type: "spring" }
                   }
-                  className="w-[90%] max-w-[700px] flex rounded-lg shadow-2xl relative overflow-hidden transform-style-3d"
+                  className="w-[90%] max-w-[700px] flex flex-col md:flex-row rounded-lg shadow-2xl relative overflow-hidden transform-style-3d"
                   style={{ backgroundColor: "#f0b469", color: "#1a1714", minHeight: "240px" }}
                 >
                   {/* Perforated Stub */}
-                  <div className="w-1/4 border-r-4 border-dashed border-[#1a1714]/20 p-4 flex flex-col justify-between items-center bg-[#e6a15c]">
-                    <div className="font-serif font-bold text-2xl md:text-3xl tracking-widest text-[#1a1714]/80 mt-2" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+                  <div className="w-full md:w-1/4 border-b-4 md:border-b-0 md:border-r-4 border-dashed border-[#1a1714]/20 p-3 md:p-4 flex md:flex-col flex-row justify-between items-center bg-[#e6a15c]">
+                    <div className="font-serif font-bold text-lg md:text-3xl tracking-widest text-[#1a1714]/80 mt-0 md:mt-2 md:[writing-mode:vertical-rl] md:[transform:rotate(180deg)]">
                       भारतीय रेल
                     </div>
-                    <div className="font-mono text-[10px] md:text-xs font-bold text-[#1a1714]/70 mt-4">
+                    <div className="font-mono text-[10px] md:text-xs font-bold text-[#1a1714]/70 mt-0 md:mt-4">
                       NO. {ticketNumber}
                     </div>
                   </div>
                   
                   {/* Main Ticket */}
-                  <div className="w-3/4 p-6 flex flex-col justify-between relative overflow-hidden bg-[#f0b469]">
+                  <div className="w-full md:w-3/4 p-4 md:p-6 flex flex-col justify-between relative overflow-hidden bg-[#f0b469]">
                     {/* Watermark */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
                       <span className="text-9xl font-serif">IR</span>
@@ -168,62 +168,62 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
                     
                     <div className="flex justify-between items-start">
                       <div>
-                        <h2 className="font-serif font-bold tracking-widest text-lg md:text-xl text-black">INDIAN RAILWAYS</h2>
-                        <p className="font-mono text-[10px] font-bold mt-1 tracking-widest text-black/70">JOURNEY TICKET</p>
+                        <h2 className="font-serif font-bold tracking-widest text-base md:text-xl text-black">INDIAN RAILWAYS</h2>
+                        <p className="font-mono text-[9px] md:text-[10px] font-bold mt-1 tracking-widest text-black/70">JOURNEY TICKET</p>
                       </div>
                       <div className="text-right">
-                        <div className="font-mono text-[10px] font-bold text-black/60">DATE</div>
-                        <div className="font-mono text-sm md:text-base font-bold text-black">{today}</div>
+                        <div className="font-mono text-[9px] md:text-[10px] font-bold text-black/60">DATE</div>
+                        <div className="font-mono text-xs md:text-base font-bold text-black">{today}</div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mt-6 z-10">
+                    <div className="grid grid-cols-2 gap-4 mt-4 md:mt-6 z-10">
                       <div>
-                        <p className="font-mono text-[10px] font-bold text-black/60 mb-1">FROM</p>
+                        <p className="font-mono text-[9px] md:text-[10px] font-bold text-black/60 mb-1">FROM</p>
                         {isPunched ? (
-                          <p className="font-serif font-bold text-lg md:text-xl leading-tight text-black truncate">{fromLocation || "EARTH"}</p>
+                          <p className="font-serif font-bold text-sm md:text-xl leading-tight text-black truncate">{fromLocation || "EARTH"}</p>
                         ) : (
                           <input 
                             type="text" 
                             value={fromLocation} 
                             onChange={(e) => setFromLocation(e.target.value)}
-                            className="bg-transparent border-b-2 border-black/30 focus:border-black outline-none font-serif font-bold uppercase w-full text-black placeholder:text-black/30 transition-colors text-lg md:text-xl leading-tight pointer-events-auto"
+                            className="bg-transparent border-b-2 border-black/30 focus:border-black outline-none font-serif font-bold uppercase w-full text-black placeholder:text-black/30 transition-colors text-sm md:text-xl leading-tight pointer-events-auto"
                             placeholder="YOUR CITY"
                             maxLength={15}
                           />
                         )}
                       </div>
                       <div>
-                        <p className="font-mono text-[10px] font-bold text-black/60 mb-1">TO</p>
-                        <p className="font-serif font-bold text-lg md:text-xl whitespace-nowrap leading-tight text-black">ANKIT'S JOURNEY</p>
+                        <p className="font-mono text-[9px] md:text-[10px] font-bold text-black/60 mb-1">TO</p>
+                        <p className="font-serif font-bold text-sm md:text-xl whitespace-nowrap leading-tight text-black">ANKIT'S JOURNEY</p>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mt-6 z-10">
+                    <div className="grid grid-cols-2 gap-4 mt-4 md:mt-6 z-10">
                       <div>
-                        <p className="font-mono text-[10px] font-bold text-black/60 mb-1">PASSENGER NAME</p>
+                        <p className="font-mono text-[9px] md:text-[10px] font-bold text-black/60 mb-1">PASSENGER NAME</p>
                         {isPunched ? (
-                          <p className="font-mono font-bold uppercase text-black text-sm md:text-base truncate">{passengerName || "GUEST"}</p>
+                          <p className="font-mono font-bold uppercase text-black text-xs md:text-base truncate">{passengerName || "GUEST"}</p>
                         ) : (
                           <input 
                             type="text" 
                             value={passengerName} 
                             onChange={(e) => setPassengerName(e.target.value)}
-                            className="bg-transparent border-b-2 border-black/30 focus:border-black outline-none font-mono font-bold uppercase w-full text-black placeholder:text-black/30 transition-colors text-sm md:text-base pointer-events-auto"
+                            className="bg-transparent border-b-2 border-black/30 focus:border-black outline-none font-mono font-bold uppercase w-full text-black placeholder:text-black/30 transition-colors text-xs md:text-base pointer-events-auto"
                             placeholder="ENTER NAME"
                             maxLength={20}
                           />
                         )}
                       </div>
                       <div>
-                        <p className="font-mono text-[10px] font-bold text-black/60 mb-1">CLASS</p>
+                        <p className="font-mono text-[9px] md:text-[10px] font-bold text-black/60 mb-1">CLASS</p>
                         {isPunched ? (
-                          <p className="font-mono font-bold uppercase text-black text-sm md:text-base">{ticketClass}</p>
+                          <p className="font-mono font-bold uppercase text-black text-xs md:text-base">{ticketClass}</p>
                         ) : (
                           <select 
                             value={ticketClass}
                             onChange={(e) => setTicketClass(e.target.value)}
-                            className="bg-transparent border-b-2 border-black/30 focus:border-black outline-none font-mono font-bold uppercase w-full cursor-pointer text-black transition-colors text-sm md:text-base pointer-events-auto"
+                            className="bg-transparent border-b-2 border-black/30 focus:border-black outline-none font-mono font-bold uppercase w-full cursor-pointer text-black transition-colors text-xs md:text-base pointer-events-auto"
                           >
                             <option className="bg-[#f0b469]">GENERAL</option>
                             <option className="bg-[#f0b469]">SLEEPER</option>
